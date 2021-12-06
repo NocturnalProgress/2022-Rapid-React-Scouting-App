@@ -8,8 +8,8 @@ public class MenuSwipe : MonoBehaviour
 
     [SerializeField] GameObject scrollbar;
 
-    [Range(1f, 1.5f)] [SerializeField] float selectedSize = 1.1f;
-    [Range(0.01f, 0.5f)] [SerializeField] float animationSpeed = 0.1f;
+    [SerializeField] [Range(1f, 1.5f)] float selectedSize = 1.1f;
+    [SerializeField] [Range(0.01f, 0.5f)] float animationSpeed = 0.1f;
 
     [SerializeField] float scrollPosition;
     [SerializeField] float[] position;
@@ -70,7 +70,7 @@ public class MenuSwipe : MonoBehaviour
 
     public void GoToSavedData()
     {
-        scrollPosition = position[6];
+        scrollPosition = position[5];
     }
 
     public void GoToBeforeMatch()
