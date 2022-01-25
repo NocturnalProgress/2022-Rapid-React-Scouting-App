@@ -6,7 +6,7 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class Data
+public struct Data
 {
     // public string dataName = "Scouting Data";
 
