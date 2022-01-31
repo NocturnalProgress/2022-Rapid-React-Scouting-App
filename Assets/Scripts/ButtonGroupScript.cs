@@ -10,7 +10,7 @@ public class ButtonGroupScript : MonoBehaviour
     [SerializeField] Canvas teleOpCanvas;
     [SerializeField] Canvas endGameCanvas;
     [SerializeField] Canvas exportDataCanvas;
-    [SerializeField] Canvas settingsCanvas;
+    [SerializeField] Canvas compileDataCanvas;
 
     private void Start()
     {
@@ -19,7 +19,7 @@ public class ButtonGroupScript : MonoBehaviour
         teleOpCanvas.enabled = false;
         endGameCanvas.enabled = false;
         exportDataCanvas.enabled = false;
-        settingsCanvas.enabled = false;
+        compileDataCanvas.enabled = false;
     }
 
     public void OpenBeforeMatchCanvas()
@@ -29,7 +29,7 @@ public class ButtonGroupScript : MonoBehaviour
         teleOpCanvas.enabled = false;
         endGameCanvas.enabled = false;
         exportDataCanvas.enabled = false;
-        settingsCanvas.enabled = false;
+        compileDataCanvas.enabled = false;
     }
 
     public void OpenAutonomousCanvas()
@@ -39,7 +39,7 @@ public class ButtonGroupScript : MonoBehaviour
         teleOpCanvas.enabled = false;
         endGameCanvas.enabled = false;
         exportDataCanvas.enabled = false;
-        settingsCanvas.enabled = false;
+        compileDataCanvas.enabled = false;
     }
 
     public void OpenTeleOpCanvas()
@@ -49,7 +49,7 @@ public class ButtonGroupScript : MonoBehaviour
         teleOpCanvas.enabled = true;
         endGameCanvas.enabled = false;
         exportDataCanvas.enabled = false;
-        settingsCanvas.enabled = false;
+        compileDataCanvas.enabled = false;
     }
 
     public void OpenEndGameCanvas()
@@ -59,7 +59,7 @@ public class ButtonGroupScript : MonoBehaviour
         teleOpCanvas.enabled = false;
         endGameCanvas.enabled = true;
         exportDataCanvas.enabled = false;
-        settingsCanvas.enabled = false;
+        compileDataCanvas.enabled = false;
     }
 
     public void OpenExportDataCanvas()
@@ -69,16 +69,16 @@ public class ButtonGroupScript : MonoBehaviour
         teleOpCanvas.enabled = false;
         endGameCanvas.enabled = false;
         exportDataCanvas.enabled = true;
-        settingsCanvas.enabled = false;
+        compileDataCanvas.enabled = false;
     }
 
-    public void OpenSettingsCanvas()
+    public void OpenCompileDataButton()
     {
         beforeMatchCanvas.enabled = false;
         autonomousCanvas.enabled = false;
         teleOpCanvas.enabled = false;
         endGameCanvas.enabled = false;
         exportDataCanvas.enabled = false;
-        settingsCanvas.enabled = true;
+        compileDataCanvas.enabled = true;
     }
 }
