@@ -22,7 +22,7 @@ public class MenuSwipe : MonoBehaviour
     {
         position = new float[transform.childCount];
         distance = 1f / (position.Length - 1f);
-        distanceThreshold = distance / 2;
+        distanceThreshold = distance / 2f;
         selectedSizeVerVector3 = new Vector3(selectedSize, selectedSize);
         scrollbarComponent = scrollbar.GetComponent<Scrollbar>();
         for (var i = 0; i < position.Length; i++)
