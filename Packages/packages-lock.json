@@ -2,7 +2,7 @@
   "dependencies": {
     "com.unity.2d.animation": {
       "version": "3.2.14",
-      "depth": 1,
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.2d.common": "2.1.0",
@@ -55,7 +55,7 @@
       "dependencies": {}
     },
     "com.unity.2d.spriteshape": {
-      "version": "3.0.17",
+      "version": "3.0.18",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -72,7 +72,7 @@
       "dependencies": {}
     },
     "com.unity.collab-proxy": {
-      "version": "1.12.5",
+      "version": "1.14.9",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
