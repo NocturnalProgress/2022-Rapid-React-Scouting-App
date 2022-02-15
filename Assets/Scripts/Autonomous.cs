@@ -1,28 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Autonomous : MonoBehaviour
 {
-    public Data data;
+    [SerializeField] SerializeData serializeData;
+
+    [SerializeField] TMP_Text autonomousHighCounter;
+    [SerializeField] TMP_Text autonomousLowCounter;
+
 
     public void increaseAutonomousHigh()
     {
-        data.autonomousHigh += 4;
+        serializeData.data.autonomousHigh += 4;
+        autonomousHighCounter.text = serializeData.data.autonomousHigh.ToString();
     }
 
     public void decreaseAutonomousHigh()
     {
-        data.autonomousHigh -= 4;
+        serializeData.data.autonomousHigh -= 4;
+        autonomousHighCounter.text = serializeData.data.autonomousHigh.ToString();
     }
 
     public void increaseAutonomousLow()
     {
-        data.autonomousLow += 2;
+        serializeData.data.autonomousLow += 2;
+        autonomousLowCounter.text = serializeData.data.autonomousLow.ToString();
     }
 
     public void decreaseAutonomousLow()
     {
-        data.autonomousLow += 2;
+        serializeData.data.autonomousLow += 2;
+        autonomousLowCounter.text = serializeData.data.autonomousLow.ToString();
+
     }
 }
