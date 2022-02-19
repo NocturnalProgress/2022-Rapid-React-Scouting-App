@@ -264,7 +264,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6251703792958831545}
   m_Layer: 5
-  m_Name: ScoutingDataPrefab
+  m_Name: ViewScoutingDataPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
