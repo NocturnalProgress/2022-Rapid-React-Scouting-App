@@ -18,9 +18,11 @@ public struct Data
     public int autonomousLow;
     public int teleOpHigh;
     public int teleOpLow;
+    public int climbLevel;
+
 
     [JsonConstructor]
-    public Data(string name, string matchNumber, string teamNumber, string taxi, int autonomousHigh, int autonomousLow, int teleOpHigh, int teleOpLow)
+    public Data(string name, string matchNumber, string teamNumber, string taxi, int autonomousHigh, int autonomousLow, int teleOpHigh, int teleOpLow, int climbLevel)
     {
         this.name = name;
         this.matchNumber = matchNumber;
@@ -30,5 +32,6 @@ public struct Data
         this.autonomousLow = autonomousLow;
         this.teleOpHigh = teleOpHigh;
         this.teleOpLow = teleOpLow;
+        this.climbLevel = climbLevel;
     }
 }
