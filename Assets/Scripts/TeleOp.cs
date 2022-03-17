@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TeleOp : MonoBehaviour
 {
-    [SerializeField] SerializeData serializeData;
+    [SerializeField] DataManager dataManager;
 
     [SerializeField] TMP_Text teleOpHighCounter;
     [SerializeField] TMP_Text teleOpLowCounter;
@@ -13,26 +13,37 @@ public class TeleOp : MonoBehaviour
 
     public void increaseTeleOpHigh()
     {
-        serializeData.data.teleOpHigh += 4;
-        teleOpHighCounter.text = serializeData.data.teleOpHigh.ToString();
+        dataManager.data.teleOpHigh += 2;
+        teleOpHighCounter.text = dataManager.data.teleOpHigh.ToString();
     }
 
     public void decreaseTeleOpHigh()
     {
-        serializeData.data.teleOpHigh -= 4;
-        teleOpHighCounter.text = serializeData.data.teleOpHigh.ToString();
+        dataManager.data.teleOpHigh -= 2;
+
+        if (dataManager.data.teleOpHigh < 0)
+        {
+            dataManager.data.teleOpHigh = 0;
+        }
+
+        teleOpHighCounter.text = dataManager.data.teleOpHigh.ToString();
     }
 
     public void increaseTeleOpLow()
     {
-        serializeData.data.teleOpLow += 2;
-        teleOpLowCounter.text = serializeData.data.teleOpLow.ToString();
+        dataManager.data.teleOpLow += 1;
+        teleOpLowCounter.text = dataManager.data.teleOpLow.ToString();
     }
 
     public void decreaseTeleOpLow()
     {
-        serializeData.data.teleOpLow += 2;
-        teleOpLowCounter.text = serializeData.data.teleOpLow.ToString();
+        dataManager.data.teleOpLow -= 1;
 
+        if (dataManager.data.teleOpLow < 0)
+        {
+            dataManager.data.teleOpLow = 0;
+        }
+
+        teleOpLowCounter.text = dataManager.data.teleOpLow.ToString();
     }
 }

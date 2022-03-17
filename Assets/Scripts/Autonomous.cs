@@ -5,34 +5,44 @@ using UnityEngine;
 
 public class Autonomous : MonoBehaviour
 {
-    [SerializeField] SerializeData serializeData;
+    [SerializeField] DataManager dataManager;
 
     [SerializeField] TMP_Text autonomousHighCounter;
     [SerializeField] TMP_Text autonomousLowCounter;
 
-
     public void increaseAutonomousHigh()
     {
-        serializeData.data.autonomousHigh += 4;
-        autonomousHighCounter.text = serializeData.data.autonomousHigh.ToString();
+        dataManager.data.autonomousHigh += 4;
+        autonomousHighCounter.text = dataManager.data.autonomousHigh.ToString();
     }
 
     public void decreaseAutonomousHigh()
     {
-        serializeData.data.autonomousHigh -= 4;
-        autonomousHighCounter.text = serializeData.data.autonomousHigh.ToString();
+        dataManager.data.autonomousHigh -= 4;
+
+        if (dataManager.data.autonomousHigh < 0)
+        {
+            dataManager.data.autonomousHigh = 0;
+        }
+
+        autonomousHighCounter.text = dataManager.data.autonomousHigh.ToString();
     }
 
     public void increaseAutonomousLow()
     {
-        serializeData.data.autonomousLow += 2;
-        autonomousLowCounter.text = serializeData.data.autonomousLow.ToString();
+        dataManager.data.autonomousLow += 2;
+        autonomousLowCounter.text = dataManager.data.autonomousLow.ToString();
     }
 
     public void decreaseAutonomousLow()
     {
-        serializeData.data.autonomousLow += 2;
-        autonomousLowCounter.text = serializeData.data.autonomousLow.ToString();
+        dataManager.data.autonomousLow -= 2;
 
+        if (dataManager.data.autonomousLow < 0)
+        {
+            dataManager.data.autonomousLow = 0;
+        }
+
+        autonomousLowCounter.text = dataManager.data.autonomousLow.ToString();
     }
 }
