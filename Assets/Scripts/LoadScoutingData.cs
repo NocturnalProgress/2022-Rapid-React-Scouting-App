@@ -11,88 +11,81 @@ public class LoadScoutingData : MonoBehaviour
     [HideInInspector] public Data data;
 
     [SerializeField] GameObject scrollViewContent;
+    [SerializeField] GameObject viewSavedDataPrefab;
     [SerializeField] GameObject savedDataPrefab;
+    [SerializeField] GameObject savedDataParent;
 
-    private string path;
-
-    private string scoutingDataFolderPath;
+    private string uncompiledScoutingDataFolderPath;
+    private string compiledScoutingDataFolderPath;
 
     private TextAsset jsonFile;
 
-    [SerializeField] GameObject loadedScoutingDataPrefab;
-
-    [SerializeField] List<Data> loadedScoutingData = new List<Data>();
-
-    [SerializeField] [HideInInspector] List<TextAsset> importedTextAssets = new List<TextAsset>();
-
-
-
-    // Scouting data is loaded into "importedTextAssets" list as a TextAsset
-    // Finally Scouting Data is added to "loadedScoutingData" for use
+    public List<Data> allUncompiledScoutingData = new List<Data>();
 
     private void Start()
     {
-        path = Application.dataPath + "/Resources/TestData/";
-
-        scoutingDataFolderPath = Application.persistentDataPath + "/ScoutingData/";
+        uncompiledScoutingDataFolderPath = Application.persistentDataPath + "/UncompiledScoutingData/";
+        compiledScoutingDataFolderPath = Application.persistentDataPath + "/CompiledScoutingData/";
     }
-
-    //public void LoadSavedData()
-    //{
-    //    loadedScoutingData.Clear();
-
-    //    foreach (string scoutingDataPath in Directory.GetFiles(path, "*.json"))
-    //    {
-    //        importedTextAssets.Add(Resources.Load<TextAsset>("TestData/" + Path.GetFileNameWithoutExtension(scoutingDataPath)));
-    //    }
-
-    //    for (int i = 0; i < importedTextAssets.Count; i++)
-    //    {
-    //        var pulledDataFromFile = JsonConvert.DeserializeObject<List<Data>>(importedTextAssets[i].ToString());
-    //        for (int j = 0; j < pulledDataFromFile.Count; j++)
-    //        {
-    //            loadedScoutingData.Add(pulledDataFromFile[j]);
-    //        }
-    //    }
-
-    //    importedTextAssets.Clear();
-
-    //    PopulateSavedDataScrollView();
-    //}
 
     public void LoadSavedData()
     {
-        foreach (string newPath in Directory.GetFiles(scoutingDataFolderPath, "*.json"))
+        if (!Directory.Exists(uncompiledScoutingDataFolderPath))
+        {
+            Directory.CreateDirectory(uncompiledScoutingDataFolderPath);
+        }
+
+        foreach (string newPath in Directory.GetFiles(uncompiledScoutingDataFolderPath, "*.json"))
         {
             jsonFile = new TextAsset(File.ReadAllText(newPath));
-            //Debug.Log("jsonFile \n" + jsonFile);
-
             var pulledDataFromFile = JsonConvert.DeserializeObject<List<Data>>(jsonFile.ToString());
-            //Debug.Log("pulledDataFromFile: \n" + pulledDataFromFile);
 
             for (int j = 0; j < pulledDataFromFile.Count; j++)
             {
-                loadedScoutingData.Add(pulledDataFromFile[j]);
+                allUncompiledScoutingData.Add(pulledDataFromFile[j]);
             }
 
-            //Debug.Log("loadedScoutingData: \n" + loadedScoutingData);
+            for (int i = 0; i < allUncompiledScoutingData.Count; i++)
+            {
+                Debug.Log("foundScoutingData: \n" + allUncompiledScoutingData[i].name + ", " + allUncompiledScoutingData[i].teamNumber + ", " + allUncompiledScoutingData[i].matchNumber);
+                GameObject instantiatedsavedDataPrefab = Instantiate(savedDataPrefab, savedDataParent.transform, false);
+                instantiatedsavedDataPrefab.GetComponent<PopulateScoutingDataPrefabFields>().DataToPopulateWith(allUncompiledScoutingData[i]);
+                PopulateSavedDataScrollView(instantiatedsavedDataPrefab);
+            }
         }
-
-        PopulateSavedDataScrollView();
-        //foreach (Data foundScoutingData in loadedScoutingData)
-        //{
-        //    Debug.Log("foundScoutingData: \n" + foundScoutingData.matchNumber);
-        //    Debug.Log("foundScoutingData: \n" + foundScoutingData.teamNumber);
-
-        //}
     }
 
-    private void PopulateSavedDataScrollView()
+    public void ExportUncompiledScoutingData()
     {
-        for (int g = 0; g < loadedScoutingData.Count; g++)
+        if (!Directory.Exists(compiledScoutingDataFolderPath))
         {
-            GameObject instantiatedSavedData = Instantiate(savedDataPrefab, scrollViewContent.transform, false) as GameObject;
-            instantiatedSavedData.transform.Find("SelectScoutingDataButton").GetComponentInChildren<TMP_Text>().text = loadedScoutingData[g].name;
+            Directory.CreateDirectory(compiledScoutingDataFolderPath);
+        }
+
+        var save = JsonConvert.SerializeObject(allUncompiledScoutingData, Formatting.Indented);
+        File.WriteAllText(compiledScoutingDataFolderPath + UnityEngine.Random.Range(00000, 99999) + ".json", save);
+
+        //notificationSystem.DataSaveSuccess();
+        //ClearAllData();
+        allUncompiledScoutingData.Clear();
+
+        Debug.Log("Compiled Data");
+    }
+
+    private void PopulateSavedDataScrollView(GameObject savedDataPrefabLink)
+    {
+        foreach (Transform child in scrollViewContent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        for (int g = 0; g < allUncompiledScoutingData.Count; g++)
+        {
+            Debug.Log(allUncompiledScoutingData[g]);
+            GameObject instantiatedViewSavedData = Instantiate(viewSavedDataPrefab, scrollViewContent.transform, false);
+            instantiatedViewSavedData.transform.Find("SelectScoutingDataButton").GetComponentInChildren<TMP_Text>().text = allUncompiledScoutingData[g].name;
+
+            instantiatedViewSavedData.GetComponent<ViewSavedData>().GetSavedDataPrefab(savedDataPrefabLink);
         }
     }
 }
