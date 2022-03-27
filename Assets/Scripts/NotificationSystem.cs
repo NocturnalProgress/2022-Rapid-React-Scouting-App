@@ -64,6 +64,35 @@ public class NotificationSystem : MonoBehaviour
         DisplayNotificationCanvas("Error Uploading Data: " + error);
     }
 
+    public void FinishedLoadingUncompiledScoutingData()
+    {
+        DisplayNotificationCanvas("Loaded All Uncompiled Scouting Data!");
+    }
+
+    public void FinishedCompilingAllScoutingData()
+    {
+        DisplayNotificationCanvas("Finished Compiling Scouting Data!");
+    }
+
+    public void FinishedLoadingCompiledScoutingData()
+    {
+        DisplayNotificationCanvas("Loaded All Compiled Scouting Data!");
+    }
+
+    public void FinishedConvertingCompiledDataToCSV()
+    {
+        DisplayNotificationCanvas("Converted All Compiled Data To CSV!");
+    }
+
+    public void NoUncompiledDataFound()
+    {
+        DisplayNotificationCanvas("Error: No uncompiled scouting data!");
+    }
+
+    public void NoCompiledDataFound()
+    {
+        DisplayNotificationCanvas("Error: No compiled scouting data found");
+    }
 
     private void SetNotificationMessage(string message)
     {
