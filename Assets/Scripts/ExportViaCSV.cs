@@ -17,8 +17,9 @@ public class ExportViaCSV : MonoBehaviour
 
     public void GetDataToExport(Data importedData)
     {
-        CheckFolderExistence("/CompiledScoutingData");
         CheckFolderExistence("/UncompiledScoutingData");
+        CheckFolderExistence("/CompiledScoutingData");
+        CheckFolderExistence("/CompiledCSVFiles");
 
         CheckFileExistence();
         CreateCSVTitles();
@@ -43,7 +44,7 @@ public class ExportViaCSV : MonoBehaviour
 
     private void CreateNewCSVFile()
     {
-        CSVFilePath = Application.persistentDataPath + "/UncompiledScoutingData/UncompiledScoutingData_" + UnityEngine.Random.Range(00000, 99999) + ".csv";
+        CSVFilePath = Application.persistentDataPath + "/CompiledCSVFiles/AllCompiledScoutingData_" + UnityEngine.Random.Range(00000, 99999) + ".csv";
     }
 
     private void CreateCSVTitles()
