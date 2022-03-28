@@ -1,22 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using Newtonsoft.Json;
 using System;
 using TMPro;
 using System.IO;
 
-//[Serializable]
-//public class SendDataEvent : UnityEvent<List<Data>> { }
-
-//[Serializable]
-//public class ExportDataEvent : UnityEvent<List<Data>> { }
-
 [Serializable]
 public class DataManager : MonoBehaviour
 {
-    //[SerializeField] SendDataEvent sendDataEvent;
-
     [SerializeField] NotificationSystem notificationSystem;
 
     [SerializeField] SendData sendData;
@@ -57,7 +48,7 @@ public class DataManager : MonoBehaviour
         autonomousHighCounter.text = data.autonomousHigh.ToString();
         autonomousLowCounter.text = data.autonomousLow.ToString();
 
-        scoutingDataFolderPath = Application.persistentDataPath + "/UncompiledJsonScoutingData/";
+        scoutingDataFolderPath = Application.persistentDataPath + "/UncompiledScoutingData/";
     }
 
     public void SaveData() // Export via Forms
@@ -108,9 +99,6 @@ public class DataManager : MonoBehaviour
 
     public void SendDataToForms()
     {
-        //sendData.GetDataToSend(allData);
-        //sendDataEvent.Invoke(allData);
-
         if (allData.Count == 0)
         {
             notificationSystem.NoDataToExport();
