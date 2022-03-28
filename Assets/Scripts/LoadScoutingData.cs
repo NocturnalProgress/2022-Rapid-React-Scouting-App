@@ -47,7 +47,7 @@ public class LoadScoutingData : MonoBehaviour
 
             for (int i = 0; i < allUncompiledScoutingData.Count; i++)
             {
-                Debug.Log("foundScoutingData: \n" + allUncompiledScoutingData[i].name + ", " + allUncompiledScoutingData[i].teamNumber + ", " + allUncompiledScoutingData[i].matchNumber);
+                Debug.Log("foundScoutingData: \n" + allUncompiledScoutingData[i].name + ", " + allUncompiledScoutingData[i].autonomousHigh + ", " + allUncompiledScoutingData[i].matchNumber);
                 GameObject instantiatedsavedDataPrefab = Instantiate(savedDataPrefab, savedDataParent.transform, false);
                 instantiatedsavedDataPrefab.GetComponent<PopulateScoutingDataPrefabFields>().DataToPopulateWith(allUncompiledScoutingData[i]);
                 PopulateSavedDataScrollView(instantiatedsavedDataPrefab);
