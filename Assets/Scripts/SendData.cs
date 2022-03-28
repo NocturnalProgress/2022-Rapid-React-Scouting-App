@@ -24,25 +24,9 @@ public class SendData : MonoBehaviour
 
     public void GetDataToSend(Data importedData)
     {
-        //importedData.Clear();
-        //importedData = importedData;
-
         StartCoroutine(Post(importedData.name, importedData.teamNumber, importedData.matchNumber.ToString(), importedData.taxi, importedData.autonomousHigh.ToString(), importedData.autonomousLow.ToString(), importedData.teleOpHigh.ToString(), importedData.teleOpLow.ToString(), importedData.climbLevel, importedData.alliancePartner, importedData.drivingEffectiveness, importedData.defenseEffectiveness, importedData.additionalNotes));
+        notificationSystem.DataUploadSuccess();
     }
-
-    //public void GetDataToSend(List<Data> importedData)
-    //{
-    //    Debug.Log("importedData.Count before clear: " + importedData.Count);
-    //    //importedData.Clear();
-    //    //importedData = importedData;
-    //    Debug.Log("importedData.Count after clear: " + importedData.Count);
-
-
-    //    for (int count = 0; count < importedData.Count; count++)
-    //    {
-    //        StartCoroutine(Post(importedData[count].name, importedData[count].teamNumber, importedData[count].matchNumber.ToString(), importedData[count].taxi, importedData[count].autonomousHigh.ToString(), importedData[count].autonomousLow.ToString(), importedData[count].teleOpHigh.ToString(), importedData[count].teleOpLow.ToString(), importedData[count].climbLevel, importedData[count].drivingEffectiveness, importedData[count].defenseEffectiveness, importedData[count].additionalNotes));
-    //    }
-    //}
 
     private IEnumerator Post(string name, string teamNumber, string matchNumber, string taxi, string autonomousHigh, string autonomousLow, string teleOpHigh, string teleOpLow, string climbLevel, string alliancePartner, string drivingEffectiveness, string defenseEffectiveness, string additionalNotes)
     {
@@ -71,7 +55,7 @@ public class SendData : MonoBehaviour
         }
         else
         {
-            notificationSystem.DataUploadSuccess();
+            // Data upload success
         }
     }
 
