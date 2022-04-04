@@ -1,42 +1,28 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System.IO;
-using System;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+using System.Text.RegularExpressions;
 
 public class ShareScoutingData : MonoBehaviour
 {
-    [SerializeField] GameObject shareDataScrollViewContent;
+    public string CSVFilePath;
 
-    private string compiledCSVFolderPath;
+    public Button fileNameButton;
+    public Button shareCSVButton;
 
-    private TextAsset foundCSVFile;
-
-    [SerializeField] List<string> allCompiledCSVFileLocations = new List<string>();
+    [SerializeField] TMP_Text fileNameButtonText;
 
     private void Start()
     {
-        compiledCSVFolderPath = Application.persistentDataPath + "/CompiledCSVFiles/";
-
+        fileNameButtonText.text = Regex.Match(Path.GetFileName(CSVFilePath), @"\d+").Value + ".csv";
     }
-
-    public void LoadAllCSVFiles()
-    {
-        foreach (string newPath in Directory.GetFiles(compiledCSVFolderPath, "*.csv"))
-        {
-            //foundCSVFile = new TextAsset(File.ReadAllText(newPath));
-
-            allCompiledCSVFileLocations.Add(newPath);
-        }
-    }
-
 
     public void ShareCSVFile()
     {
-        StartCoroutine(ShareFile(allCompiledCSVFileLocations[0]));
+        StartCoroutine(ShareFile(CSVFilePath));
     }
-
-
 
     private IEnumerator ShareFile(string filePath) // This opens the IOS share menu to allow AirDropping
     {
