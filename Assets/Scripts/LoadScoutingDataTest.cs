@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.UI;
 using Newtonsoft.Json;
-using TMPro;
 
 public class LoadScoutingDataTest : MonoBehaviour
 {
@@ -13,11 +11,8 @@ public class LoadScoutingDataTest : MonoBehaviour
 
     [SerializeField] NotificationSystem notificationSystem;
 
-    [SerializeField] GameObject uncompiledDataScrollViewContent;
-    [SerializeField] GameObject compiledDataScrollViewContent;
-    [SerializeField] GameObject viewSavedDataPrefab;
-    [SerializeField] GameObject savedDataPrefab;
-    [SerializeField] GameObject savedDataParent;
+    [SerializeField] GameObject CSVFileShare;
+    [SerializeField] GameObject CSVFileScrollViewContent;
 
     private string uncompiledScoutingDataFolderPath;
     private string compiledScoutingDataFolderPath;
@@ -41,6 +36,21 @@ public class LoadScoutingDataTest : MonoBehaviour
         LoadUncompiledScoutingData();
         ExportUncompiledScoutingData();
         LoadCompiledScoutingData();
+        ConvertCompiledDataToCSV();
+        notificationSystem.FinishedConvertingCompiledDataToCSV();
+
+        foreach (string uncompiledScoutingDataFilePath in Directory.GetFiles(uncompiledScoutingDataFolderPath, "*.json"))
+        {
+            File.Delete(uncompiledScoutingDataFilePath);
+        }
+        foreach (string compiledScoutingDataFilePath in Directory.GetFiles(compiledScoutingDataFolderPath, "*.json"))
+        {
+            File.Delete(compiledScoutingDataFilePath);
+        }
+
+        PopulateCSVFileScrollView();
+
+
     }
 
     public void LoadUncompiledScoutingData() // Need to check if directory contains files
@@ -62,31 +72,8 @@ public class LoadScoutingDataTest : MonoBehaviour
             {
                 allUncompiledScoutingData.Add(pulledDataFromFile[j]);
             }
-
-            for (int i = 0; i < allUncompiledScoutingData.Count; i++)
-            {
-                //Debug.Log("foundScoutingData: \n" + allUncompiledScoutingData[i].name + ", " + allUncompiledScoutingData[i].autonomousHigh + ", " + allUncompiledScoutingData[i].matchNumber);
-                GameObject instantiatedsavedDataPrefab = Instantiate(savedDataPrefab, savedDataParent.transform, false);
-                instantiatedsavedDataPrefab.GetComponent<PopulateScoutingDataPrefabFields>().DataToPopulateWith(allUncompiledScoutingData[i]);
-                //PopulateSavedDataScrollView(instantiatedsavedDataPrefab);
-            }
         }
-        notificationSystem.FinishedLoadingUncompiledScoutingData();
-    }
-
-    public void LoadScoutingData(string folderPath, List<Data> scoutingDataList)
-    {
-        if (!Directory.Exists(folderPath))
-        {
-            Directory.CreateDirectory(folderPath);
-        }
-        scoutingDataList.Clear();
-
-        foreach (string newPath in Directory.GetFiles(folderPath, "*.json"))
-        {
-            jsonFile = new TextAsset(File.ReadAllText(newPath));
-            var pulledDataFromFile = JsonConvert.DeserializeObject<List<Data>>(jsonFile.ToString());
-        }
+        //notificationSystem.FinishedLoadingUncompiledScoutingData();
     }
 
     public void LoadCompiledScoutingData()
@@ -106,16 +93,8 @@ public class LoadScoutingDataTest : MonoBehaviour
             {
                 allCompiledScoutingData.Add(pulledDataFromFile[j]);
             }
-
-            for (int i = 0; i < allCompiledScoutingData.Count; i++)
-            {
-                //Debug.Log("foundScoutingData: \n" + allUncompiledScoutingData[i].name + ", " + allUncompiledScoutingData[i].autonomousHigh + ", " + allUncompiledScoutingData[i].matchNumber);
-                GameObject instantiatedsavedDataPrefab = Instantiate(savedDataPrefab, savedDataParent.transform, false);
-                instantiatedsavedDataPrefab.GetComponent<PopulateScoutingDataPrefabFields>().DataToPopulateWith(allCompiledScoutingData[i]);
-                //PopulateSavedDataScrollView(instantiatedsavedDataPrefab);
-            }
         }
-        notificationSystem.FinishedLoadingCompiledScoutingData();
+        //notificationSystem.FinishedLoadingCompiledScoutingData();
     }
 
     public void ExportUncompiledScoutingData()
@@ -134,13 +113,8 @@ public class LoadScoutingDataTest : MonoBehaviour
             var save = JsonConvert.SerializeObject(allUncompiledScoutingData, Formatting.Indented);
             File.WriteAllText(compiledScoutingDataFolderPath + UnityEngine.Random.Range(00000, 99999) + ".json", save);
 
-            //foreach (Transform child in uncompiledDataScrollViewContent.transform)
-            //{
-            //    Destroy(child.gameObject);
-            //}
-
             allUncompiledScoutingData.Clear();
-            notificationSystem.FinishedCompilingAllScoutingData();
+            //notificationSystem.FinishedCompilingAllScoutingData();
         }
     }
 
@@ -162,30 +136,23 @@ public class LoadScoutingDataTest : MonoBehaviour
                 exportViaCSV.GetDataToExport(allCompiledScoutingData[i]);
             }
 
-            //foreach (Transform child in compiledDataScrollViewContent.transform)
-            //{
-            //    Destroy(child.gameObject);
-            //}
-
             allCompiledScoutingData.Clear();
-            notificationSystem.FinishedConvertingCompiledDataToCSV();
+            //notificationSystem.FinishedConvertingCompiledDataToCSV();
         }
     }
 
-    private void PopulateSavedDataScrollView(GameObject savedDataPrefabLink)
+    public void PopulateCSVFileScrollView()
     {
-        foreach (Transform child in uncompiledDataScrollViewContent.transform)
+        foreach (Transform child in CSVFileScrollViewContent.transform)
         {
             Destroy(child.gameObject);
         }
 
-        for (int g = 0; g < allUncompiledScoutingData.Count; g++)
+        foreach (string CSVFilePath in Directory.GetFiles(compiledCSVFolderPath, "*.csv"))
         {
-            Debug.Log(allUncompiledScoutingData[g]);
-            GameObject instantiatedViewSavedData = Instantiate(viewSavedDataPrefab, uncompiledDataScrollViewContent.transform, false);
-            instantiatedViewSavedData.transform.Find("SelectScoutingDataButton").GetComponentInChildren<TMP_Text>().text = allUncompiledScoutingData[g].name;
-
-            instantiatedViewSavedData.GetComponent<ViewSavedData>().GetSavedDataPrefab(savedDataPrefabLink);
+            GameObject instantiatedCSVFileShare = Instantiate(CSVFileShare, CSVFileScrollViewContent.transform, false);
+            ShareScoutingData tempShareScoutingData = instantiatedCSVFileShare.GetComponent<ShareScoutingData>();
+            tempShareScoutingData.CSVFilePath = CSVFilePath;
         }
     }
 }
