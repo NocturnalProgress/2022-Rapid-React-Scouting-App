@@ -23,7 +23,13 @@ public class ExportViaCSV : MonoBehaviour
 
         CheckFileExistence();
         CreateCSVTitles();
-        WriteToCSV(importedData.name, importedData.teamNumber, importedData.matchNumber.ToString(), importedData.taxi, importedData.autonomousHigh.ToString(), importedData.autonomousLow.ToString(), importedData.teleOpHigh.ToString(), importedData.teleOpLow.ToString(), importedData.climbLevel, importedData.alliancePartner, importedData.drivingEffectiveness, importedData.defenseEffectiveness, importedData.additionalNotes);
+        WriteToCSV(importedData.name, importedData.teamNumber, importedData.matchNumber.ToString(), importedData.taxi,
+            importedData.autonomousHighScored.ToString(), importedData.autonomousHighMissed.ToString(),
+            importedData.autonomousLowScored.ToString(), importedData.autonomousLowMissed.ToString(),
+            importedData.teleOpHighScored.ToString(), importedData.teleOpHighMissed.ToString(),
+            importedData.teleOpLowScored.ToString(), importedData.teleOpLowMissed.ToString(),
+            importedData.climbLevel, importedData.alliancePartner, importedData.drivingEffectiveness,
+            importedData.defenseEffectiveness, importedData.additionalNotes);
     }
 
     private void CheckFolderExistence(string folderLocation)
@@ -55,7 +61,7 @@ public class ExportViaCSV : MonoBehaviour
             {
                 using (StreamWriter file = new StreamWriter(CSVFilePath, true))
                 {
-                    file.WriteLine("Name" + "," + "Team Number" + "," + "Match Number" + "," + "Did The Team Taxi?" + "," + "Autonomous High" + "," + "Autonomous Low" + "," + "TeleOp High" + "," + "TeleOp Low" + "," + "Climb Level" + "," + "Alliance Partner" + "," + "Driving Effectiveness" + "," + "Defense Effectiveness" + "," + "Additional Notes");
+                    file.WriteLine("Name" + "," + "Team Number" + "," + "Match Number" + "," + "Did The Team Taxi?" + "," + "Autonomous High Scored" + "," + "Autonomous High Missed" + "," + "Autonomous Low Scored" + "," + "Autonomous Low Missed" + "," + "TeleOp High Scored" + "," + "TeleOp High Missed" + "," + "TeleOp Low Scored" + ", " + "TeleOp Low Missed" + "," + "Climb Level" + ", " + "Alliance Partner" + "," + "Driving Effectiveness" + "," + "Defense Effectiveness" + "," + "Additional Notes");
                     file.Close();
                 }
 
@@ -67,13 +73,13 @@ public class ExportViaCSV : MonoBehaviour
         }
     }
 
-    private void WriteToCSV(string name, string teamNumber, string matchNumber, string taxi, string autonomousHigh, string autonomousLow, string teleOpHigh, string teleOpLow, string climbLevel, string alliancePartner, string drivingEffectiveness, string defenseEffectiveness, string additionalNotes)
+    private void WriteToCSV(string name, string teamNumber, string matchNumber, string taxi, string autonomousHighScored, string autonomousHighMissed, string autonomousLowScored, string autonomousLowMissed, string teleOpHighScored, string teleOpHighMissed, string teleOpLowScored, string teleOpLowMissed, string climbLevel, string alliancePartner, string drivingEffectiveness, string defenseEffectiveness, string additionalNotes)
     {
         try
         {
             using (StreamWriter file = new StreamWriter(CSVFilePath, true))
             {
-                file.WriteLine(name + "," + teamNumber + "," + matchNumber + "," + taxi + "," + autonomousHigh + "," + autonomousLow + "," + teleOpHigh + "," + teleOpLow + "," + climbLevel + "," + alliancePartner + "," + drivingEffectiveness + "," + defenseEffectiveness + "," + additionalNotes.Replace("\n", "; ").Replace("\r", "; "));
+                file.WriteLine(name + "," + teamNumber + "," + matchNumber + "," + taxi + "," + autonomousHighScored + "," + autonomousHighMissed + "," + autonomousLowScored + "," + autonomousLowMissed + "," + teleOpHighScored + "," + teleOpHighMissed + "," + teleOpLowScored + "," + teleOpLowMissed + "," + climbLevel + "," + alliancePartner + "," + drivingEffectiveness + "," + defenseEffectiveness + "," + additionalNotes.Replace("\n", "; ").Replace("\r", "; "));
                 file.Close();
             }
         }

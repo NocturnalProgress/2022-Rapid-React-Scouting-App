@@ -7,42 +7,79 @@ public class Autonomous : MonoBehaviour
 {
     [SerializeField] DataManager dataManager;
 
-    [SerializeField] TMP_Text autonomousHighCounter;
-    [SerializeField] TMP_Text autonomousLowCounter;
+    [SerializeField] TMP_Text autonomousHighScoredCounter;
+    [SerializeField] TMP_Text autonomousHighMissedCounter;
+    [SerializeField] TMP_Text autonnomousLowScoredCounter;
+    [SerializeField] TMP_Text autonomousLowMissedCounter;
 
-    public void increaseAutonomousHigh()
+    public void IncreaseAutonomousHighScored()
     {
-        dataManager.data.autonomousHigh += 4;
-        autonomousHighCounter.text = dataManager.data.autonomousHigh.ToString();
+        dataManager.data.autonomousHighScored += 1;
+        autonomousHighScoredCounter.text = dataManager.data.autonomousHighScored.ToString();
     }
 
-    public void decreaseAutonomousHigh()
+    public void DecreaseAutonomousHighScored()
     {
-        dataManager.data.autonomousHigh -= 4;
+        dataManager.data.autonomousHighScored -= 1;
 
-        if (dataManager.data.autonomousHigh < 0)
+        if (dataManager.data.autonomousHighScored < 0)
         {
-            dataManager.data.autonomousHigh = 0;
+            dataManager.data.autonomousHighScored = 0;
         }
+        autonomousHighScoredCounter.text = dataManager.data.autonomousHighScored.ToString();
 
-        autonomousHighCounter.text = dataManager.data.autonomousHigh.ToString();
     }
 
-    public void increaseAutonomousLow()
+    public void IncreaseAutonomousHighMissed()
     {
-        dataManager.data.autonomousLow += 2;
-        autonomousLowCounter.text = dataManager.data.autonomousLow.ToString();
+        dataManager.data.autonomousHighMissed += 1;
+        autonomousHighMissedCounter.text = dataManager.data.autonomousHighMissed.ToString();
     }
-
-    public void decreaseAutonomousLow()
+    public void DecreaseAutonomousHighMissed()
     {
-        dataManager.data.autonomousLow -= 2;
+        dataManager.data.autonomousHighMissed -= 1;
 
-        if (dataManager.data.autonomousLow < 0)
+        if (dataManager.data.autonomousHighMissed < 0)
         {
-            dataManager.data.autonomousLow = 0;
+            dataManager.data.autonomousHighMissed = 0;
         }
+        autonomousHighMissedCounter.text = dataManager.data.autonomousHighMissed.ToString();
 
-        autonomousLowCounter.text = dataManager.data.autonomousLow.ToString();
+    }
+
+    public void IncreaseAutonomousLowScored()
+    {
+        dataManager.data.autonomousLowScored += 1;
+        autonnomousLowScoredCounter.text = dataManager.data.autonomousLowScored.ToString();
+    }
+
+    public void DecreaseAutonomousLowScored()
+    {
+        dataManager.data.autonomousLowScored -= 1;
+
+        if (dataManager.data.autonomousLowScored < 0)
+        {
+            dataManager.data.autonomousLowScored = 0;
+        }
+        autonnomousLowScoredCounter.text = dataManager.data.autonomousLowScored.ToString();
+
+    }
+
+    public void IncreaseAutonomousLowMissed()
+    {
+        dataManager.data.autonomousLowMissed += 1;
+        autonomousLowMissedCounter.text = dataManager.data.autonomousLowMissed.ToString();
+    }
+
+    public void DecreaseAutonomousLowMissed()
+    {
+        dataManager.data.autonomousLowMissed -= 1;
+
+        if (dataManager.data.autonomousLowMissed < 0)
+        {
+            dataManager.data.autonomousLowMissed = 0;
+        }
+        autonomousLowMissedCounter.text = dataManager.data.autonomousLowScored.ToString();
+
     }
 }

@@ -31,11 +31,14 @@ public class DataManager : MonoBehaviour
     [SerializeField] TMP_Dropdown defenseEffectivenessDropdown;
     [SerializeField] TMP_Dropdown alliancePartnerDropdown;
 
-    [SerializeField] TMP_Text autonomousHighCounter;
-    [SerializeField] TMP_Text autonomousLowCounter;
-
-    [SerializeField] TMP_Text teleOpHighCounter;
-    [SerializeField] TMP_Text teleOpLowCounter;
+    [SerializeField] TMP_Text autonomousHighScoredCounter;
+    [SerializeField] TMP_Text autonomousHighMissedCounter;
+    [SerializeField] TMP_Text autonomousLowScoredCounter;
+    [SerializeField] TMP_Text autonomousLowMissedCounter;
+    [SerializeField] TMP_Text teleOpHighScoredCounter;
+    [SerializeField] TMP_Text teleOpHighMissedCounter;
+    [SerializeField] TMP_Text teleOpLowScoredCounter;
+    [SerializeField] TMP_Text teleOpLowMissedCounter;
 
     [SerializeField] GameObject scrollViewContent;
     [SerializeField] GameObject savedDataPrefab;
@@ -45,8 +48,15 @@ public class DataManager : MonoBehaviour
     private void Start() // Autosave data starting in 5 seconds and every 10 seconds
     {
         PrepareForNextMatch();
-        autonomousHighCounter.text = data.autonomousHigh.ToString();
-        autonomousLowCounter.text = data.autonomousLow.ToString();
+
+        autonomousHighScoredCounter.text = data.autonomousHighScored.ToString();
+        autonomousHighMissedCounter.text = data.autonomousHighMissed.ToString();
+        autonomousLowScoredCounter.text = data.autonomousLowScored.ToString();
+        autonomousLowMissedCounter.text = data.autonomousLowMissed.ToString();
+        teleOpHighScoredCounter.text = data.teleOpHighScored.ToString();
+        teleOpHighMissedCounter.text = data.teleOpHighMissed.ToString();
+        teleOpLowScoredCounter.text = data.teleOpLowScored.ToString();
+        teleOpLowMissedCounter.text = data.teleOpLowMissed.ToString();
 
         scoutingDataFolderPath = Application.persistentDataPath + "/UncompiledScoutingData/";
     }
@@ -67,17 +77,25 @@ public class DataManager : MonoBehaviour
 
     public void ExportDataToJSON()
     {
-        if (Directory.Exists(scoutingDataFolderPath))
+        if (allData.Count == 0)
         {
-            var save = JsonConvert.SerializeObject(allData, Formatting.Indented);
-            File.WriteAllText(scoutingDataFolderPath + UnityEngine.Random.Range(00000, 99999) + ".json", save);
+            notificationSystem.NoDataToExport();
 
-            notificationSystem.DataSaveSuccess();
-            ClearAllData();
         }
         else
         {
-            Directory.CreateDirectory(scoutingDataFolderPath);
+            if (Directory.Exists(scoutingDataFolderPath))
+            {
+                var save = JsonConvert.SerializeObject(allData, Formatting.Indented);
+                File.WriteAllText(scoutingDataFolderPath + UnityEngine.Random.Range(00000, 99999) + ".json", save);
+
+                notificationSystem.DataSaveSuccess();
+                ClearAllData();
+            }
+            else
+            {
+                Directory.CreateDirectory(scoutingDataFolderPath);
+            }
         }
     }
 
@@ -122,14 +140,22 @@ public class DataManager : MonoBehaviour
         matchNumberInputField.text = "";
         data.taxi = "No";
         taxiDropdown.value = 0;
-        data.autonomousHigh = 0;
-        data.autonomousLow = 0;
-        data.teleOpHigh = 0;
-        data.teleOpLow = 0;
-        autonomousHighCounter.text = 0.ToString();
-        autonomousLowCounter.text = 0.ToString();
-        teleOpHighCounter.text = 0.ToString();
-        teleOpLowCounter.text = 0.ToString();
+        data.autonomousHighScored = 0;
+        data.autonomousHighMissed = 0;
+        data.autonomousLowScored = 0;
+        data.autonomousLowMissed = 0;
+        data.teleOpHighScored = 0;
+        data.teleOpHighMissed = 0;
+        data.teleOpLowScored = 0;
+        data.teleOpLowMissed = 0;
+        autonomousHighScoredCounter.text = data.autonomousHighScored.ToString();
+        autonomousHighMissedCounter.text = data.autonomousHighMissed.ToString();
+        autonomousLowScoredCounter.text = data.autonomousLowScored.ToString();
+        autonomousLowMissedCounter.text = data.autonomousLowMissed.ToString();
+        teleOpHighScoredCounter.text = data.teleOpHighScored.ToString();
+        teleOpHighMissedCounter.text = data.teleOpHighMissed.ToString();
+        teleOpLowScoredCounter.text = data.teleOpLowScored.ToString();
+        teleOpLowMissedCounter.text = data.teleOpLowMissed.ToString();
         data.climbLevel = 0.ToString();
         climbLevelDropdown.value = 0;
         alliancePartnerDropdown.value = 0;
@@ -153,14 +179,22 @@ public class DataManager : MonoBehaviour
         matchNumberInputField.text = "";
         data.taxi = "No";
         taxiDropdown.value = 0;
-        data.autonomousHigh = 0;
-        data.autonomousLow = 0;
-        data.teleOpHigh = 0;
-        data.teleOpLow = 0;
-        autonomousHighCounter.text = 0.ToString();
-        autonomousLowCounter.text = 0.ToString();
-        teleOpHighCounter.text = 0.ToString();
-        teleOpLowCounter.text = 0.ToString();
+        data.autonomousHighScored = 0;
+        data.autonomousHighMissed = 0;
+        data.autonomousLowScored = 0;
+        data.autonomousLowMissed = 0;
+        data.teleOpHighScored = 0;
+        data.teleOpHighMissed = 0;
+        data.teleOpLowScored = 0;
+        data.teleOpLowMissed = 0;
+        autonomousHighScoredCounter.text = data.autonomousHighScored.ToString();
+        autonomousHighMissedCounter.text = data.autonomousHighMissed.ToString();
+        autonomousLowScoredCounter.text = data.autonomousLowScored.ToString();
+        autonomousLowMissedCounter.text = data.autonomousLowMissed.ToString();
+        teleOpHighScoredCounter.text = data.teleOpHighScored.ToString();
+        teleOpHighMissedCounter.text = data.teleOpHighMissed.ToString();
+        teleOpLowScoredCounter.text = data.teleOpLowScored.ToString();
+        teleOpLowMissedCounter.text = data.teleOpLowMissed.ToString();
         data.climbLevel = 0.ToString();
         data.alliancePartner = alliancePartnerDropdown.options[alliancePartnerDropdown.value].text;
         climbLevelDropdown.value = 0;

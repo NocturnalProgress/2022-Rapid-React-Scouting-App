@@ -7,43 +7,79 @@ public class TeleOp : MonoBehaviour
 {
     [SerializeField] DataManager dataManager;
 
-    [SerializeField] TMP_Text teleOpHighCounter;
-    [SerializeField] TMP_Text teleOpLowCounter;
+    [SerializeField] TMP_Text teleOpHighScoredCounter;
+    [SerializeField] TMP_Text teleOpHighMissedCounter;
+    [SerializeField] TMP_Text teleOpLowScoredCounter;
+    [SerializeField] TMP_Text teleOpLowMissedCounter;
 
-
-    public void increaseTeleOpHigh()
+    public void IncreaseTeleOpHighScored()
     {
-        dataManager.data.teleOpHigh += 2;
-        teleOpHighCounter.text = dataManager.data.teleOpHigh.ToString();
+        dataManager.data.teleOpHighScored += 1;
+        teleOpHighScoredCounter.text = dataManager.data.teleOpHighScored.ToString();
     }
 
-    public void decreaseTeleOpHigh()
+    public void DecreaseTeleOpHighScored()
     {
-        dataManager.data.teleOpHigh -= 2;
+        dataManager.data.teleOpHighScored -= 1;
 
-        if (dataManager.data.teleOpHigh < 0)
+        if (dataManager.data.teleOpHighScored < 0)
         {
-            dataManager.data.teleOpHigh = 0;
+            dataManager.data.teleOpHighScored = 0;
         }
+        teleOpHighScoredCounter.text = dataManager.data.teleOpHighScored.ToString();
 
-        teleOpHighCounter.text = dataManager.data.teleOpHigh.ToString();
     }
 
-    public void increaseTeleOpLow()
+    public void IncreaseTeleOpHighMissed()
     {
-        dataManager.data.teleOpLow += 1;
-        teleOpLowCounter.text = dataManager.data.teleOpLow.ToString();
+        dataManager.data.teleOpHighMissed += 1;
+        teleOpHighMissedCounter.text = dataManager.data.teleOpHighMissed.ToString();
     }
-
-    public void decreaseTeleOpLow()
+    public void DecreaseTeleOpHighMissed()
     {
-        dataManager.data.teleOpLow -= 1;
+        dataManager.data.teleOpHighMissed -= 1;
 
-        if (dataManager.data.teleOpLow < 0)
+        if (dataManager.data.teleOpHighMissed < 0)
         {
-            dataManager.data.teleOpLow = 0;
+            dataManager.data.teleOpHighMissed = 0;
         }
+        teleOpHighMissedCounter.text = dataManager.data.teleOpHighMissed.ToString();
 
-        teleOpLowCounter.text = dataManager.data.teleOpLow.ToString();
+    }
+
+    public void IncreaseTeleOpLowScored()
+    {
+        dataManager.data.teleOpLowScored += 1;
+        teleOpLowScoredCounter.text = dataManager.data.teleOpLowScored.ToString();
+    }
+
+    public void DecreaseTeleOpLowScored()
+    {
+        dataManager.data.teleOpLowScored -= 1;
+
+        if (dataManager.data.teleOpLowScored < 0)
+        {
+            dataManager.data.teleOpLowScored = 0;
+        }
+        teleOpLowScoredCounter.text = dataManager.data.teleOpLowScored.ToString();
+
+    }
+
+    public void IncreaseTeleOpLowMissed()
+    {
+        dataManager.data.teleOpLowMissed += 1;
+        teleOpLowMissedCounter.text = dataManager.data.teleOpLowMissed.ToString();
+    }
+
+    public void DecreaseTeleOpLowMissed()
+    {
+        dataManager.data.teleOpLowMissed -= 1;
+
+        if (dataManager.data.teleOpLowMissed < 0)
+        {
+            dataManager.data.teleOpLowMissed = 0;
+        }
+        teleOpLowMissedCounter.text = dataManager.data.teleOpLowScored.ToString();
+
     }
 }

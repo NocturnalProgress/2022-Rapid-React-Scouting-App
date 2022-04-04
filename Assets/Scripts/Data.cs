@@ -12,10 +12,14 @@ public struct Data
     public string teamNumber;
     public int matchNumber;
     public string taxi;
-    public int autonomousHigh;
-    public int autonomousLow;
-    public int teleOpHigh;
-    public int teleOpLow;
+    public int autonomousHighScored;
+    public int autonomousHighMissed;
+    public int autonomousLowScored;
+    public int autonomousLowMissed;
+    public int teleOpHighScored;
+    public int teleOpHighMissed;
+    public int teleOpLowScored;
+    public int teleOpLowMissed;
     public string climbLevel;
     public string alliancePartner;
     public string drivingEffectiveness;
@@ -24,16 +28,20 @@ public struct Data
 
 
     [JsonConstructor]
-    public Data(string name, string teamNumber, int matchNumber, string taxi, int autonomousHigh, int autonomousLow, int teleOpHigh, int teleOpLow, string climbLevel, string alliancePartner, string drivingEffectiveness, string defenseEffectiveness, string additionalNotes)
+    public Data(string name, string teamNumber, int matchNumber, string taxi, int autonomousHighScored, int autonomousHighMissed, int autonomousLowScored, int autonomousLowMissed, int teleOpHigh, int teleOpLow, int teleOpHighScored, int teleOpHighMissed, int teleOpLowScored, int teleOpLowMissed, string climbLevel, string alliancePartner, string drivingEffectiveness, string defenseEffectiveness, string additionalNotes)
     {
         this.name = name;
         this.teamNumber = teamNumber;
         this.matchNumber = matchNumber;
         this.taxi = taxi;
-        this.autonomousHigh = autonomousHigh;
-        this.autonomousLow = autonomousLow;
-        this.teleOpHigh = teleOpHigh;
-        this.teleOpLow = teleOpLow;
+        this.autonomousHighScored = autonomousHighScored;
+        this.autonomousHighMissed = autonomousHighMissed;
+        this.autonomousLowScored = autonomousLowScored;
+        this.autonomousLowMissed = autonomousLowMissed;
+        this.teleOpHighScored = teleOpHighScored;
+        this.teleOpHighMissed = teleOpHighMissed;
+        this.teleOpLowScored = teleOpLowScored;
+        this.teleOpLowMissed = teleOpLowMissed;
         this.climbLevel = climbLevel;
         this.alliancePartner = alliancePartner;
         this.drivingEffectiveness = drivingEffectiveness;

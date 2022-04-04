@@ -5,7 +5,6 @@ using UnityEngine.Networking;
 
 public class SendData : MonoBehaviour
 {
-
     [SerializeField] List<Data> importedData;
 
     [SerializeField] EventsManager eventsManager;
@@ -24,21 +23,31 @@ public class SendData : MonoBehaviour
 
     public void GetDataToSend(Data importedData)
     {
-        StartCoroutine(Post(importedData.name, importedData.teamNumber, importedData.matchNumber.ToString(), importedData.taxi, importedData.autonomousHigh.ToString(), importedData.autonomousLow.ToString(), importedData.teleOpHigh.ToString(), importedData.teleOpLow.ToString(), importedData.climbLevel, importedData.alliancePartner, importedData.drivingEffectiveness, importedData.defenseEffectiveness, importedData.additionalNotes));
+        StartCoroutine(Post(importedData.name, importedData.teamNumber, importedData.matchNumber.ToString(), importedData.taxi,
+            importedData.autonomousHighScored.ToString(), importedData.autonomousHighMissed.ToString(),
+            importedData.autonomousLowScored.ToString(), importedData.autonomousLowMissed.ToString(),
+            importedData.teleOpHighScored.ToString(), importedData.teleOpHighMissed.ToString(),
+            importedData.teleOpLowScored.ToString(), importedData.teleOpLowMissed.ToString(),
+            importedData.climbLevel, importedData.alliancePartner, importedData.drivingEffectiveness,
+            importedData.defenseEffectiveness, importedData.additionalNotes));
         notificationSystem.DataUploadSuccess();
     }
 
-    private IEnumerator Post(string name, string teamNumber, string matchNumber, string taxi, string autonomousHigh, string autonomousLow, string teleOpHigh, string teleOpLow, string climbLevel, string alliancePartner, string drivingEffectiveness, string defenseEffectiveness, string additionalNotes)
+    private IEnumerator Post(string name, string teamNumber, string matchNumber, string taxi, string autonomousHighScored, string autonomousHighMissed, string autonomousLowScored, string autonomousLowMissed, string teleOpHighScored, string teleOpHighMissed, string teleOpLowScored, string teleOpLowMissed, string climbLevel, string alliancePartner, string drivingEffectiveness, string defenseEffectiveness, string additionalNotes)
     {
         WWWForm form = new WWWForm(); // This fills out the form input fields
         form.AddField("entry.1317882528", name);
         form.AddField("entry.1858266580", teamNumber);
         form.AddField("entry.1505419592", matchNumber);
         form.AddField("entry.728185797", taxi);
-        form.AddField("entry.11060155", autonomousHigh);
-        form.AddField("entry.450539814", autonomousLow);
-        form.AddField("entry.1924468322", teleOpHigh);
-        form.AddField("entry.1071090911", teleOpLow);
+        form.AddField("entry.11060155", autonomousHighScored);
+        form.AddField("entry.450539814", autonomousHighMissed);
+        form.AddField("entry.1924468322", autonomousLowScored);
+        form.AddField("entry.1231967687", autonomousLowMissed);
+        form.AddField("entry.1071090911", teleOpHighScored);
+        form.AddField("entry.1632037445", teleOpHighMissed);
+        form.AddField("entry.938731060", teleOpLowScored);
+        form.AddField("entry.1637358504", teleOpLowMissed);
         form.AddField("entry.680301956", climbLevel);
         form.AddField("entry.984116978", alliancePartner);
         form.AddField("entry.232468374", drivingEffectiveness);
